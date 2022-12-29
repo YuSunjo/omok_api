@@ -1,5 +1,5 @@
 import {IsEmail, IsNotEmpty} from "class-validator";
-import {Member} from "../member.entity";
+import {Member} from "../domain/member.entity";
 
 export class MemberLoginRequest {
     @IsNotEmpty()
