@@ -1,0 +1,14 @@
+POST {{local_api}}/member/login
+Content-Type: application/json
+
+{
+    "email": ""
+}
+
+### register
+POST {{local_api}}/member/register
+Content-Type: application/json
+
+{
+    "email": "tnswh2023@naver.com"
+}
