@@ -17,4 +17,8 @@ export class Member extends BaseEntity{
         this.email = email;
     }
 
+    static newMember(email: string) {
+        return new Member("", email);
+    }
+
 }

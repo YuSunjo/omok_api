@@ -16,9 +16,8 @@ export class MemberService {
     }
 
     async register(request: MemberLoginRequest): Promise<Member> {
-        let member2 = request.toEntity();
-        let member1 = new Member("name", request.email);
-        return this.memberRepository.save(member1);
+        let member = Member.newMember(request.email);
+        return this.memberRepository.save(member);
     }
 
 }

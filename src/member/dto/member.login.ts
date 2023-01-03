@@ -6,6 +6,10 @@ export class MemberLoginRequest {
     @IsEmail()
     email: string;
 
+    constructor(email: string) {
+        this.email = email;
+    }
+
     toEntity() {
         return new Member("", this.email);
     }
