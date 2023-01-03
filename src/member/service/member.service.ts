@@ -7,7 +7,6 @@ import {Repository} from "typeorm";
 @Injectable()
 export class MemberService {
 
-    // @ts-ignore
     constructor(@InjectRepository(Member)
                 private memberRepository: Repository<Member>
     ) {}
