@@ -8,7 +8,7 @@ export class Member extends BaseEntity{
     @Column()
     name: string;
 
-    @Column()
+    @Column({unique: true})
     email: string;
 
     constructor(name: string, email: string) {

@@ -2,7 +2,7 @@ POST {{local_api}}/member/login
 Content-Type: application/json
 
 {
-    "email": ""
+    "email": "tnswh2023@naver.com"
 }
 
 ### register
