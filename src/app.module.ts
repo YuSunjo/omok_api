@@ -5,13 +5,15 @@ import {TypeOrmModule} from "@nestjs/typeorm";
 import {typeormConfig} from "../configs/typeorm.config";
 import {AuthModule} from './auth/auth.module';
 import {HttpExceptionFilter} from "../exception/http.exception.filter";
+import { EventModule } from './event/event.module';
 
 @Module({
     imports: [
         TypeOrmModule.forRoot(typeormConfig),
         MemberModule,
         PingModule,
-        AuthModule
+        AuthModule,
+        EventModule
     ],
     providers: [{
         provide: 'APP_FILTER',
