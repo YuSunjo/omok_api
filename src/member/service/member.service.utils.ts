@@ -13,4 +13,12 @@ export class MemberServiceUtils {
         return member;
     }
 
+    static async findMemberById(memberRepository: Repository<Member>, userId: any) {
+        const member = await memberRepository.findOneBy({id: userId});
+        if (member == null) {
+            throw new BusinessException("회원이 존재하지 않습니다.", HttpStatus.NOT_FOUND);
+        }
+        return member;
+    }
+
 }

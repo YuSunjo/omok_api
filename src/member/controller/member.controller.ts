@@ -1,7 +1,7 @@
 import {Body, Controller, Post, UsePipes, ValidationPipe} from '@nestjs/common';
 import {MemberService} from "../service/member.service";
 import {ApiResponse} from "../../api.response";
-import {MemberLoginRequest} from "../dto/member.login";
+import {MatchingRequest, MemberLoginRequest} from "../dto/member.login";
 import {Member} from "../domain/member.entity";
 
 @Controller('member')
@@ -22,6 +22,12 @@ export class MemberController {
     @UsePipes(new ValidationPipe())
     async register(@Body() request: MemberLoginRequest): Promise<ApiResponse<Promise<Member>>> {
         return ApiResponse.success(this.memberService.register(request));
+    }
+
+    // 매칭
+    @Post('matching')
+    async matching(@Body() request: MatchingRequest) {
+        this.memberService.matching(request.token);
     }
 
 }

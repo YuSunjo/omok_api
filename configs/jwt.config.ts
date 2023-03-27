@@ -6,4 +6,13 @@ export class JwtConfig {
         return await jwt.sign({data: id}, "secret", {expiresIn: "23h"});
     }
 
+    public static async decodeToken(token: string) {
+        await jwt.verify(token, 'secret', function(err, decoded) {
+            if (err) {
+                console.log(err)
+            }
+            return decoded.id;
+        })
+    }
+
 }

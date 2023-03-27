@@ -1,4 +1,4 @@
-import {IsEmail, IsNotEmpty} from "class-validator";
+import {IsEmail, isNotEmpty, IsNotEmpty} from "class-validator";
 import {Member} from "../domain/member.entity";
 
 export class MemberLoginRequest {
@@ -13,5 +13,12 @@ export class MemberLoginRequest {
     toEntity() {
         return new Member("", this.email);
     }
+
+}
+
+export class MatchingRequest {
+
+    @IsNotEmpty()
+    token: string;
 
 }
