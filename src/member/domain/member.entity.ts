@@ -11,13 +11,17 @@ export class Member extends BaseEntity {
   @Column({ unique: true })
   email: string;
 
-  constructor(name: string, email: string) {
+  @Column()
+  password: string;
+
+  constructor(name: string, email: string, password: string) {
     super();
     this.name = name;
     this.email = email;
+    this.password = password;
   }
 
-  static newMember(email: string) {
-    return new Member('', email);
+  static newMember(email: string, encodedPassword: string, name: string) {
+    return new Member(name, email, encodedPassword);
   }
 }

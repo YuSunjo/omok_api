@@ -1,5 +1,4 @@
 import { IsEmail, IsNotEmpty } from 'class-validator';
-import { Member } from '../domain/member.entity';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class MemberLoginRequest {
@@ -7,17 +6,11 @@ export class MemberLoginRequest {
   @IsEmail()
   @ApiProperty({ description: '이름' })
   email: string;
+  @ApiProperty({ description: '비밀번호' })
+  password: string;
 
-  constructor(email: string) {
+  constructor(email: string, password: string) {
     this.email = email;
+    this.password = password;
   }
-
-  toEntity() {
-    return new Member('', this.email);
-  }
-}
-
-export class MatchingRequest {
-  @IsNotEmpty()
-  token: string;
 }

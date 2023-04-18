@@ -9,6 +9,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 import { DataSource } from 'typeorm';
 import { addTransactionalDataSource } from 'typeorm-transactional';
+import { JwtStrategy } from './configs/jwt/jwt.strategy';
 
 @Module({
   imports: [
@@ -46,6 +47,7 @@ import { addTransactionalDataSource } from 'typeorm-transactional';
       provide: 'APP_FILTER',
       useClass: HttpExceptionFilter,
     },
+    JwtStrategy,
   ],
 })
 export class AppModule {}
