@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { MemberLoginRequest } from '../dto/member.login';
 import { Member } from '../domain/member.entity';
 import { Repository } from 'typeorm';
-import { JwtConfig } from '../../../configs/jwt.config';
+import { JwtConfig } from '../../configs/jwt.config';
 import { MemberServiceUtils } from './member.service.utils';
 
 @Injectable()

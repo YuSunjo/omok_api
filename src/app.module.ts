@@ -3,7 +3,7 @@ import { MemberModule } from './member/member.module';
 import { PingModule } from './ping/ping.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
-import { HttpExceptionFilter } from '../exception/http.exception.filter';
+import { HttpExceptionFilter } from './exception/http.exception.filter';
 import { EventModule } from './event/event.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';

@@ -1,7 +1,7 @@
 import { Repository } from 'typeorm';
 import { Member } from '../domain/member.entity';
 import { HttpStatus } from '@nestjs/common';
-import { BusinessException } from '../../../exception/business.exception';
+import { BusinessException } from '../../exception/business.exception';
 
 export class MemberServiceUtils {
   static async findMemberByEmail(memberRepository: Repository<Member>, email: string) {
