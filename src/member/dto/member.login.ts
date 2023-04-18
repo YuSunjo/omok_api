@@ -1,24 +1,23 @@
-import {IsEmail, isNotEmpty, IsNotEmpty} from "class-validator";
-import {Member} from "../domain/member.entity";
+import { IsEmail, IsNotEmpty } from 'class-validator';
+import { Member } from '../domain/member.entity';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class MemberLoginRequest {
-    @IsNotEmpty()
-    @IsEmail()
-    email: string;
+  @IsNotEmpty()
+  @IsEmail()
+  @ApiProperty({ description: '이름' })
+  email: string;
 
-    constructor(email: string) {
-        this.email = email;
-    }
+  constructor(email: string) {
+    this.email = email;
+  }
 
-    toEntity() {
-        return new Member("", this.email);
-    }
-
+  toEntity() {
+    return new Member('', this.email);
+  }
 }
 
 export class MatchingRequest {
-
-    @IsNotEmpty()
-    token: string;
-
+  @IsNotEmpty()
+  token: string;
 }

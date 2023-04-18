@@ -1,9 +1,7 @@
-import {HttpException} from "@nestjs/common";
+import { HttpException } from '@nestjs/common';
 
 export class BusinessException extends HttpException {
-
-    constructor(message: string, status: number = 400) {
-        super(message, status);
-    }
-
+  constructor(message: string, status = 400) {
+    super(message, status);
+  }
 }

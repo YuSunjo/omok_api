@@ -1,8 +1,8 @@
 interface JoinRoom {
-    roomId: string
+  roomId: string;
 }
 
 interface JoinRoomResponse {
-    roomId: string,
-    board
+  roomId: string;
+  board;
 }
