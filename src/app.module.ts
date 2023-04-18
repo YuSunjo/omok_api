@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import { MemberModule } from './member/member.module';
 import { PingModule } from './ping/ping.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AuthModule } from './auth/auth.module';
 import { HttpExceptionFilter } from './exception/http.exception.filter';
 import { EventModule } from './event/event.module';
 import { MongooseModule } from '@nestjs/mongoose';
@@ -38,7 +37,6 @@ import { JwtStrategy } from './configs/jwt/jwt.strategy';
     }),
     MemberModule,
     PingModule,
-    AuthModule,
     EventModule,
     MongooseModule.forRoot('mongodb+srv://tnswh2023:1234@blog-mongo.tjhpryp.mongodb.net/blog_mongo'),
   ],
