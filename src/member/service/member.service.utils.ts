@@ -1,5 +1,5 @@
 import { Repository } from 'typeorm';
-import { Member } from '../domain/member.entity';
+import { Member } from '../entities/member.entity';
 import { HttpStatus } from '@nestjs/common';
 import { BusinessException } from '../../exception/business.exception';
 

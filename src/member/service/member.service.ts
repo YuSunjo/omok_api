@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Member } from '../domain/member.entity';
+import { Member } from '../entities/member.entity';
 import { Repository } from 'typeorm';
 import { MemberServiceUtils } from './member.service.utils';
 import { CreateMemberRequest } from '../dto/request/create.member.request';

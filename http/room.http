@@ -1,0 +1,14 @@
+### createRoom
+POST {{local_api}}/api/v1/room
+Content-Type: application/json
+
+{
+  "name": "room1",
+  "password": "1234",
+  "isPrivate": false
+}
+
+###
+GET {{local_api}}/api/v1/room/all
+Content-Type: application/json
+

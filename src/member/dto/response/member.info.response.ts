@@ -1,4 +1,4 @@
-import { Member } from '../../domain/member.entity';
+import { Member } from '../../entities/member.entity';
 
 export class MemberInfoResponse {
   id: number;

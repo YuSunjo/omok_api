@@ -9,6 +9,7 @@ import { ConfigModule } from '@nestjs/config';
 import { DataSource } from 'typeorm';
 import { addTransactionalDataSource } from 'typeorm-transactional';
 import { JwtStrategy } from './configs/jwt/jwt.strategy';
+import { RoomModule } from './room/room.module';
 
 @Module({
   imports: [
@@ -39,6 +40,7 @@ import { JwtStrategy } from './configs/jwt/jwt.strategy';
     PingModule,
     EventModule,
     MongooseModule.forRoot('mongodb+srv://tnswh2023:1234@blog-mongo.tjhpryp.mongodb.net/blog_mongo'),
+    RoomModule,
   ],
   providers: [
     {

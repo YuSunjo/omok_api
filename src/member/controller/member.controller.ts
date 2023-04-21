@@ -33,8 +33,8 @@ export class MemberController {
     await this.memberService.getUser(userId);
     return ApiResponse.success(await this.memberService.getUser(userId));
   }
-
-  // 매칭
+  //
+  // // 매칭
   // @Post('matching')
   // async matching(@Body() request: MatchingRequest) {
   //   this.memberService.matching(request.token);
