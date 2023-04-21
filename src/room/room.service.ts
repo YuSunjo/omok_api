@@ -4,7 +4,7 @@ import { RoomInfoResponse } from './dto/response/room.info.response';
 import { RoomNameResponse } from './dto/response/room.name.response';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Room, RoomDocument } from '../event/schema/room.schema';
+import { Room, RoomDocument } from './schema/room.schema';
 
 @Injectable()
 export class RoomService {

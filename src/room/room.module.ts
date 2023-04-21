@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { RoomService } from './room.service';
 import { RoomController } from './room.controller';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Room, RoomSchema } from '../event/schema/room.schema';
+import { Room, RoomSchema } from './schema/room.schema';
 
 @Module({
   imports: [MongooseModule.forFeature([{ name: Room.name, schema: RoomSchema }])],

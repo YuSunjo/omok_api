@@ -10,6 +10,7 @@ import { DataSource } from 'typeorm';
 import { addTransactionalDataSource } from 'typeorm-transactional';
 import { JwtStrategy } from './configs/jwt/jwt.strategy';
 import { RoomModule } from './room/room.module';
+import { MatchModule } from './match/match.module';
 
 @Module({
   imports: [
@@ -41,6 +42,7 @@ import { RoomModule } from './room/room.module';
     EventModule,
     MongooseModule.forRoot('mongodb+srv://tnswh2023:1234@blog-mongo.tjhpryp.mongodb.net/blog_mongo'),
     RoomModule,
+    MatchModule,
   ],
   providers: [
     {

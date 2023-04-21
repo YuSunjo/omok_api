@@ -9,7 +9,7 @@ import {
   WebSocketServer,
 } from '@nestjs/websockets';
 import { InjectModel } from '@nestjs/mongoose';
-import { Room, RoomDocument } from './schema/room.schema';
+import { Room, RoomDocument } from '../room/schema/room.schema';
 import { Model } from 'mongoose';
 import { v4 as uuidv4 } from 'uuid';
 import { Server, Socket } from 'net';

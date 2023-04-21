@@ -1,4 +1,4 @@
-import { Room } from '../../../event/schema/room.schema';
+import { Room } from '../../schema/room.schema';
 
 export class RoomInfoResponse {
   roomId: string;
