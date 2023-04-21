@@ -2,9 +2,9 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { MemberService } from '../../../dist/member/service/member.service';
-import { Member } from '../../../dist/member/entities/member.entity';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from '../../configs/jwt/jwt.constants';
+import { Member } from '../entities/member.entity';
 
 describe('MemberService', () => {
   let service: MemberService;
