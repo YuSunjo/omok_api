@@ -1,14 +1,14 @@
-import { Controller, Get, Post, Body, Param, Delete, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';
 import { RoomService } from './room.service';
-import { CreateRoomDto } from './dto/create-room.dto';
+import { CreateRoomDto } from './dto/request/create-room.dto';
 import { ApiResponse } from '../api.response';
+import { PlayOmokRequest } from './dto/request/play.omok.request';
 
 @Controller()
 export class RoomController {
   constructor(private readonly roomService: RoomService) {}
 
   @Post('api/v1/room')
-  @UsePipes(new ValidationPipe())
   async createRoom(@Body() request: CreateRoomDto) {
     return ApiResponse.success(await this.roomService.createRoom(request));
   }
@@ -18,9 +18,9 @@ export class RoomController {
     return ApiResponse.success(await this.roomService.retrieveRoom());
   }
 
-  @Get('api/v1/room/:id')
-  async findOne(@Param('id') id: number) {
-    const roomInfoResponse = await this.roomService.findOne(id);
+  @Get('api/v1/room/:roomId')
+  async findOne(@Param('roomId') roomId: string) {
+    const roomInfoResponse = await this.roomService.findOne(roomId);
     return ApiResponse.success(roomInfoResponse);
   }
 
@@ -29,9 +29,14 @@ export class RoomController {
   //   return this.roomService.update(+id, updateRoomDto);
   // }
 
-  @Delete('api/v1/room/:id')
-  async remove(@Param('id') id: number) {
-    await this.roomService.remove(id);
+  @Delete('api/v1/room/:roomId')
+  async remove(@Param('roomId') roomId: string) {
+    await this.roomService.remove(roomId);
     return ApiResponse.ok();
+  }
+
+  @Post('api/v1/room/omok')
+  async playOmok(@Body() request: PlayOmokRequest) {
+    return ApiResponse.success(await this.roomService.playOmok(request));
   }
 }

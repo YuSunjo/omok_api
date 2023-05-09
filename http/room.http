@@ -12,3 +12,18 @@ Content-Type: application/json
 GET {{local_api}}/api/v1/room/all
 Content-Type: application/json
 
+###
+GET {{local_api}}/api/v1/room/5019193e-6fb1-4e97-a118-38516d9370c6
+Content-Type: application/json
+
+###
+POST {{local_api}}/api/v1/room/omok
+Content-Type: application/json
+
+{
+  "roomId": "5019193e-6fb1-4e97-a118-38516d9370c6",
+  "turn": "black",
+  "x": 4,
+  "y": 0
+}
+
