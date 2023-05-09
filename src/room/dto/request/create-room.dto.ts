@@ -7,7 +7,7 @@ export class CreateRoomDto {
   name: string;
   @ApiProperty({ description: '비밀번호' })
   password: string;
-  @ApiProperty({ description: '비공개 여부' })
+  @ApiProperty({ description: '비공개 여부', default: false })
   isPrivate = false;
 
   constructor(name: string, password: string, isPrivate: boolean) {
