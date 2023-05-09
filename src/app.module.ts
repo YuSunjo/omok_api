@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, ValidationPipe } from '@nestjs/common';
 import { MemberModule } from './member/member.module';
 import { PingModule } from './ping/ping.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -12,6 +12,7 @@ import { JwtStrategy } from './configs/jwt/jwt.strategy';
 import { RoomModule } from './room/room.module';
 import { MatchModule } from './match/match.module';
 import { RabbitMQModule } from '@golevelup/nestjs-rabbitmq';
+import { APP_PIPE } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -59,6 +60,12 @@ import { RabbitMQModule } from '@golevelup/nestjs-rabbitmq';
     {
       provide: 'APP_FILTER',
       useClass: HttpExceptionFilter,
+    },
+    {
+      provide: APP_PIPE,
+      useValue: new ValidationPipe({
+        transform: true,
+      }),
     },
     JwtStrategy,
   ],
