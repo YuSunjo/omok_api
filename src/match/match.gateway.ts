@@ -87,6 +87,14 @@ export class MatchGateway implements OnGatewayInit, OnGatewayConnection, OnGatew
     console.log('----------------------------');
   }
 
+  @SubscribeMessage('cancel-match')
+  async handleCancelMatch(@ConnectedSocket() socket: any, @MessageBody() payload: string) {
+    console.log('socket', socket.id);
+    const matchRequest = JSON.parse(payload);
+    await this.matchModel.deleteOne({ id: socket.id, userId: matchRequest.userId });
+    socket.emit('message', '매칭취소');
+  }
+
   @SubscribeMessage('room-list')
   handleRoomList() {
     return this.createdRooms;
