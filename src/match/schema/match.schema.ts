@@ -9,7 +9,7 @@ export class Match {
   id: string;
 
   @Prop()
-  user_id: number;
+  userId: number;
 
   @Prop({ default: now() })
   createdAt: Date;
@@ -17,9 +17,9 @@ export class Match {
   @Prop({ default: now() })
   updatedAt: Date;
 
-  constructor(id: string, user_id: number) {
+  constructor(id: string, userId: number) {
     this.id = id;
-    this.user_id = user_id;
+    this.userId = userId;
   }
 
   static insertQueue(id, user_id: number) {

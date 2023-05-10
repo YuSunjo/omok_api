@@ -14,6 +14,8 @@ import { Server } from 'net';
 import { Logger } from '@nestjs/common';
 import { Match, MatchDocument } from './schema/match.schema';
 import { Room, RoomDocument } from '../room/schema/room.schema';
+import { CommandBus } from '@nestjs/cqrs';
+import { MatchCommand } from '../command/match.command';
 
 @WebSocketGateway({
   namespace: 'match',
@@ -23,11 +25,13 @@ import { Room, RoomDocument } from '../room/schema/room.schema';
 })
 export class MatchGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
   private logger = new Logger('MathEvent');
+  createdRooms: string[] = [];
 
   @WebSocketServer()
   server: Server;
 
   constructor(
+    private readonly commandBus: CommandBus,
     @InjectModel(Match.name) private matchModel: Model<MatchDocument>,
     @InjectModel(Room.name) private roomModel: Model<RoomDocument>,
   ) {}
@@ -48,6 +52,7 @@ export class MatchGateway implements OnGatewayInit, OnGatewayConnection, OnGatew
   @SubscribeMessage('message')
   handleMessage(client: any, payload: any): string {
     console.log(`${client.id} : ${payload}`);
+    client.emit('message', '매칭완료');
     return 'Hello world!';
   }
 
@@ -59,16 +64,31 @@ export class MatchGateway implements OnGatewayInit, OnGatewayConnection, OnGatew
   @SubscribeMessage('match')
   async handleMatch(@ConnectedSocket() socket: any, @MessageBody() payload: string) {
     console.log('socket', socket.id);
-    console.log('matchRequest', payload);
     const matchRequest = JSON.parse(payload);
-    console.log('matchRequest', matchRequest);
-    const newMatch: MatchDocument = await this.matchModel.create(Match.insertQueue(socket.id, matchRequest.user_id));
-    const match = await this.matchModel.find({
-      gt: newMatch.createdAt,
-    });
-    // 앞에 들어온게 있다면 두개를 특정 room에 넣는다.
-    // 그 후에 삭제한다.
-    // 만약 본인밖에 없다면 바로 리턴한다.
-    console.log('match', match);
+    const newMatch: MatchDocument = await this.matchModel.create(Match.insertQueue(socket.id, matchRequest.userId));
+    // 매칭 로직
+    const newVar = await this.commandBus.execute(new MatchCommand(socket.id, newMatch));
+    console.log(newVar);
+
+    // 대기열에 아무도 없다면 본인이 방을 만든다.
+    if (newVar.length == 1) {
+      this.server.emit('create-room', { roomName: `userId${newVar[0].userId}` });
+      console.log('newVar', newVar);
+      socket.join(`userId${newVar[0].userId}`);
+      return;
+    }
+    // 대기열에 누군가가 있다면 이전사람이 만든 방에 들어간다.
+    console.log('----------------------------');
+    console.log('newVar', newVar);
+    socket.join(`userId${newVar[0].userId}`);
+    await this.matchModel.deleteMany({ id: { $in: [newVar[0].id, newVar[1].id] } });
+    socket.broadcast.to(`userId${newVar[0].userId}`).emit('message', '매칭완료');
+    socket.emit('message', '매칭완료');
+    console.log('----------------------------');
+  }
+
+  @SubscribeMessage('room-list')
+  handleRoomList() {
+    return this.createdRooms;
   }
 }
