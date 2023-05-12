@@ -89,6 +89,20 @@ export class Room {
     );
   }
 
+  static newRoomWithPlayer(name: string, password: string, isPrivate: boolean, player1: string, player2: string) {
+    return new Room(
+      uuidv4(),
+      name,
+      password,
+      isPrivate,
+      false,
+      player1,
+      player2,
+      'black',
+      Array.from(Array(19), () => new Array(19).fill(0)),
+    );
+  }
+
   static plainToClass(room: Room) {
     return new Room(
       room.roomId,

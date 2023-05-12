@@ -16,6 +16,7 @@ import { Match, MatchDocument } from './schema/match.schema';
 import { Room, RoomDocument } from '../room/schema/room.schema';
 import { CommandBus } from '@nestjs/cqrs';
 import { MatchCommand } from '../command/match.command';
+import { SocketResponse } from '../socket.response';
 
 @WebSocketGateway({
   namespace: 'match',
@@ -82,8 +83,29 @@ export class MatchGateway implements OnGatewayInit, OnGatewayConnection, OnGatew
     console.log('newVar', newVar);
     socket.join(`userId${newVar[0].userId}`);
     await this.matchModel.deleteMany({ id: { $in: [newVar[0].id, newVar[1].id] } });
-    socket.broadcast.to(`userId${newVar[0].userId}`).emit('message', '매칭완료');
-    socket.emit('message', '매칭완료');
+    const room = await this.roomModel.create(
+      Room.newRoomWithPlayer(
+        `${newVar[0].userId}${newVar[1].userId}`,
+        '1234',
+        true,
+        newVar[0].userId,
+        newVar[1].userId,
+      ),
+    );
+    socket.broadcast.to(`userId${newVar[0].userId}`).emit(
+      'matching_response',
+      SocketResponse.success({
+        roomId: room.roomId,
+        userId: newVar[1].userId,
+      }),
+    );
+    socket.emit(
+      'matching_response',
+      SocketResponse.success({
+        roomId: room.roomId,
+        userId: newVar[0].userId,
+      }),
+    );
     console.log('----------------------------');
   }
 
