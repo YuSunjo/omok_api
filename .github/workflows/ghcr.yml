@@ -3,7 +3,7 @@ name: omok docker ghcr push
 on:
   push:
     branches:
-      - master
+      - main
       - develop
 env:
   DOCKER_IMAGE: ghcr.io/yusunjo/omok_api
