@@ -1,0 +1,41 @@
+name: omok docker ghcr push
+
+on:
+  push:
+    branches:
+      - master
+      - develop
+env:
+  DOCKER_IMAGE: ghcr.io/yusunjo/omok_api
+  VERSION: ${{ github.sha }}
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: create .env.dev
+        env:
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_PORT: '3306'
+          DB_DATABASE: 'omok'
+        run: |
+          echo -e "cloud.aws.credentials.accessKey=$CLOUD_AWS_CREDENTIALS_ACCESS_KEY\ncloud.aws.credentials.secretKey=$CLOUD_AWS_CREDENTIALS_SECRET_KEY" > $ADMIN_RESOURCE_FILE/application-aws.properties
+
+      - name: Login to ghcr
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: omok_api
+          password: ${{ secrets.GIT_TOKEN }}
+
+      - name: docker image build and push
+        run: |
+          docker build -t $DOCKER_IMAGE:$VERSION .
+          docker tag $DOCKER_IMAGE:$VERSION $DOCKER_IMAGE:latest
+          docker push $DOCKER_IMAGE:$VERSION
+          docker push $DOCKER_IMAGE:latest

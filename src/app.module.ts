@@ -11,7 +11,6 @@ import { addTransactionalDataSource } from 'typeorm-transactional';
 import { JwtStrategy } from './configs/jwt/jwt.strategy';
 import { RoomModule } from './room/room.module';
 import { MatchModule } from './match/match.module';
-import { RabbitMQModule } from '@golevelup/nestjs-rabbitmq';
 import { APP_PIPE } from '@nestjs/core';
 
 @Module({
@@ -38,16 +37,6 @@ import { APP_PIPE } from '@nestjs/core';
         }
         return addTransactionalDataSource(new DataSource(options));
       },
-    }),
-    RabbitMQModule.forRoot(RabbitMQModule, {
-      exchanges: [
-        {
-          name: 'omok',
-          type: 'topic',
-        },
-      ],
-      uri: 'amqp://localhost:5672',
-      connectionInitOptions: { wait: false },
     }),
     MemberModule,
     PingModule,
